@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { NotAuthenticated } from "../auth";
 
 const fetchForm = async (username, password) => {
-  const myHeaders = new Headers();
+  var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-  const urlencoded = new URLSearchParams();
+  var urlencoded = new URLSearchParams();
   urlencoded.append("username", username);
   urlencoded.append("password", password);
 
-  const requestOptions = {
+  var requestOptions = {
     method: "POST",
     headers: myHeaders,
     body: urlencoded,
@@ -18,31 +18,41 @@ const fetchForm = async (username, password) => {
   };
 
   const res = await fetch(
-    `${process.env.REACT_APP_API_URL}/login`,
+    `${process.env.REACT_APP_API_URL}/signup`,
     requestOptions
   );
-  const resJson = await res.json();
-
-  return resJson;
+  const resJSON = await res.json();
+  return resJSON;
 };
 
-function Login() {
+function SignUp() {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  const [passwordRepeat, setPasswordRepeat] = useState();
   const [error, setError] = useState();
   const navigate = useNavigate();
 
   const submit = async (e) => {
     e.preventDefault();
-    const res = await fetchForm(username, password);
 
-    if (res.token) {
-      localStorage.setItem("secret_token", res.token);
-      navigate("/");
+    if (!username || !password || !passwordRepeat) {
+      setError("All fields are required");
       return;
     }
 
-    setError("Username or password incorrect");
+    if (password !== passwordRepeat) {
+      setError("Passwords must match");
+      return;
+    }
+
+    const res = await fetchForm(username, password);
+
+    if (res.message) {
+      navigate("/login");
+      return;
+    }
+
+    setError("Username already taken");
   };
 
   return (
@@ -64,14 +74,22 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+        <label>Repeat Password</label>
+        <input
+          name="password"
+          type="password"
+          value={passwordRepeat}
+          onChange={(e) => setPasswordRepeat(e.target.value)}
+          required
+        />
         <button onClick={submit}>Submit</button>
       </form>
       <p>{error}</p>
       <p>
-        Don't have an account? Sign-up <a href="/signup">here</a>
+        Already have an account? Login <a href="/login">here</a>
       </p>
     </div>
   );
 }
 
-export default Login;
+export default SignUp;
