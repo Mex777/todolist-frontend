@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { NotAuthenticated } from "../auth";
 
 const fetchForm = async (username, password) => {
   const myHeaders = new Headers();
@@ -34,7 +35,6 @@ function Login() {
   const submit = async (e) => {
     e.preventDefault();
     const res = await fetchForm(username, password);
-    console.log(res);
 
     if (res.token) {
       localStorage.setItem("secret_token", res.token);
@@ -47,6 +47,7 @@ function Login() {
 
   return (
     <div>
+      <NotAuthenticated />
       <form>
         <label>Username</label>
         <input
