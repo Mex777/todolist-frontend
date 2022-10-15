@@ -46,7 +46,7 @@ function NotAuthenticated() {
       if (userJSON.user) navigate("/");
       setUser(userJSON.user);
     })();
-  }, [setUser]);
+  }, []);
 
   return null;
 }
