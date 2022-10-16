@@ -8,7 +8,13 @@ function Lists({ change, lists, addList }) {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            addList(listName);
+            const listWithSameName = lists.find(
+              (list) => list.name === listName
+            );
+            if (!listWithSameName) {
+              addList(listName);
+              setListName("");
+            }
           }}
         >
           <input

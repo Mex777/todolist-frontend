@@ -104,6 +104,20 @@ const fetchNewList = async (name) => {
   return newListJSON;
 };
 
+const fetchDeleteList = async (id) => {
+  const myHeaders = new Headers();
+  const token = localStorage.getItem("secret_token");
+  myHeaders.append("Authorization", `Bearer ${token}`);
+
+  const requestOptions = {
+    method: "DELETE",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+
+  await fetch(`${process.env.REACT_APP_API_URL}/todo/${id}`, requestOptions);
+};
+
 function App() {
   const [mainList, setMainList] = useState(0);
   const [allTasks, setAllTasks] = useState();
@@ -135,6 +149,28 @@ function App() {
     setLists(lists.concat([list]));
   };
 
+  const delList = (name) => {
+    const list = lists.find((el) => el.name === name);
+    fetchDeleteList(list._id);
+
+    // to do: make this work without reloading the page
+    // setMainList(
+    //   mainList.filter((task) => {
+    //     return task.partOf !== list._id;
+    //   })
+    // );
+    // const filtered = allTasks.filter((task) => {
+    //   console.log(task.partOf, list._id, task.partOf !== list._id);
+    //   return task.partOf !== list._id;
+    // });
+    // setAllTasks(filtered);
+    // changeMain(0, "All tasks");
+    // setLists(lists.filter((el) => el._id !== list._id));
+    // console.log(filtered);
+
+    window.location.reload();
+  };
+
   useEffect(() => {
     (async () => {
       const tasks = await fetchTasks();
@@ -156,6 +192,7 @@ function App() {
         delTask={delTask}
         allLists={lists}
         addTask={addTask}
+        delList={delList}
       />
     </div>
   );

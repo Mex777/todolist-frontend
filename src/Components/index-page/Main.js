@@ -1,12 +1,15 @@
 import { useState } from "react";
 
-function Main({ tasks, listName, delTask, allLists, addTask }) {
+function Main({ tasks, listName, delTask, allLists, addTask, delList }) {
   const [taskName, setTaskName] = useState("");
   const [list, setList] = useState("none");
   if (tasks)
     return (
       <div>
         <h2>{listName}</h2>
+        {listName !== "All tasks" ? (
+          <button onClick={() => delList(listName)}>delete</button>
+        ) : null}
         {tasks.map((task) => {
           return (
             <li key={task._id}>
