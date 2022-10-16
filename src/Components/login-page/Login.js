@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { NotAuthenticated } from "../auth";
+import { fetchUser, NotAuthenticated } from "../auth";
 
 const fetchForm = async (username, password) => {
   const myHeaders = new Headers();

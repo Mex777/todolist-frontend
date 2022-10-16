@@ -29,26 +29,25 @@ function IsAuthenticated() {
     (async () => {
       const userJSON = await fetchUser();
       if (!userJSON.user) navigate("/login");
-      setUser(userJSON.user);
+      setUser(userJSON);
     })();
-  }, [setUser]);
+  }, [navigate, setUser]);
 
   return null;
 }
 
 function NotAuthenticated() {
-  const [user, setUser] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
+      console.log(1);
       const userJSON = await fetchUser();
       if (userJSON.user) navigate("/");
-      setUser(userJSON.user);
     })();
-  }, []);
+  }, [navigate]);
 
   return null;
 }
 
-export { IsAuthenticated, NotAuthenticated };
+export { IsAuthenticated, NotAuthenticated, fetchUser };
