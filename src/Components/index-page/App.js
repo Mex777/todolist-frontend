@@ -85,6 +85,25 @@ const fetchDeleteTask = async (id) => {
   await fetch(`${process.env.REACT_APP_API_URL}/items/${id}`, requestOptions);
 };
 
+const fetchNewList = async (name) => {
+  const myHeaders = new Headers();
+  const token = localStorage.getItem("secret_token");
+  myHeaders.append("Authorization", `Bearer ${token}`);
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+
+  const newList = await fetch(
+    `${process.env.REACT_APP_API_URL}/todo?name=${name}`,
+    requestOptions
+  );
+  const newListJSON = await newList.json();
+  return newListJSON;
+};
+
 function App() {
   const [mainList, setMainList] = useState(0);
   const [allTasks, setAllTasks] = useState();
@@ -98,7 +117,6 @@ function App() {
   };
 
   const delTask = (id) => {
-    // make the requests to delete tasks on the server
     fetchDeleteTask(id);
     setAllTasks(allTasks.filter((task) => task._id != id));
     setMainList(mainList.filter((task) => task._id != id));
@@ -110,6 +128,11 @@ function App() {
     const listName = lists.find((el) => el._id == id);
     if (title === "All tasks" || title === listName.name)
       setMainList(mainList.concat([task]));
+  };
+
+  const addList = async (name) => {
+    const list = await fetchNewList(name);
+    setLists(lists.concat([list]));
   };
 
   useEffect(() => {
@@ -126,7 +149,7 @@ function App() {
     <div>
       <IsAuthenticated />
       <LogoutBtn name={"Sign out"} />
-      <Lists change={changeMain} lists={lists}></Lists>
+      <Lists addList={addList} change={changeMain} lists={lists}></Lists>
       <Main
         listName={title}
         tasks={mainList}
