@@ -5,9 +5,9 @@ import LogoutBtn from "../reusables/LogoutBtn";
 import Lists from "./Lists";
 import Main from "./Main";
 
-const fetchList = async (todoid) => {
-  const myHeaders = new Headers();
+const fetchLists = async () => {
   const token = localStorage.getItem("secret_token");
+  const myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${token}`);
 
   const requestOptions = {
@@ -16,18 +16,12 @@ const fetchList = async (todoid) => {
     redirect: "follow",
   };
 
-  try {
-    const list = await fetch(
-      `${process.env.REACT_APP_API_URL}/todo/${todoid}`,
-      requestOptions
-    );
-    const listJSON = await list.json();
-    return listJSON;
-  } catch (err) {
-    console.log("err:", err);
-  }
-
-  return 0;
+  const res = await fetch(
+    `${process.env.REACT_APP_API_URL}/todo`,
+    requestOptions
+  );
+  const resJSON = await res.json();
+  return resJSON;
 };
 
 const fetchTasks = async () => {
@@ -49,10 +43,39 @@ const fetchTasks = async () => {
   return itemsJSON;
 };
 
+const addItemReq = async (name, id) => {
+  const myHeaders = new Headers();
+  const token = localStorage.getItem("secret_token");
+  myHeaders.append("Authorization", `Bearer ${token}`);
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+  let res;
+  if (id === "none") {
+    res = await fetch(
+      `${process.env.REACT_APP_API_URL}/items?name=${name}`,
+      requestOptions
+    );
+  } else {
+    res = await fetch(
+      `${process.env.REACT_APP_API_URL}/items?name=${name}&partOf=${id}`,
+      requestOptions
+    );
+  }
+
+  const resJSON = await res.json();
+
+  return resJSON;
+};
+
 function App() {
   const [mainList, setMainList] = useState(0);
   const [allTasks, setAllTasks] = useState();
-  const [title, setTitle] = useState("All Tasks");
+  const [title, setTitle] = useState("All tasks");
+  const [lists, setLists] = useState();
 
   const changeMain = (id, name) => {
     setTitle(name);
@@ -60,9 +83,25 @@ function App() {
     else setMainList(allTasks);
   };
 
+  const delTask = (id) => {
+    // make the requests to delete tasks on the server
+    setAllTasks(allTasks.filter((task) => task._id != id));
+    setMainList(mainList.filter((task) => task._id != id));
+  };
+
+  const addTask = async (name, id) => {
+    const task = await addItemReq(name, id);
+    setAllTasks(allTasks.concat([task]));
+    const listName = lists.find((el) => el._id == id);
+    if (title === "All tasks" || title === listName.name)
+      setMainList(mainList.concat([task]));
+  };
+
   useEffect(() => {
     (async () => {
       const tasks = await fetchTasks();
+      const lists = await fetchLists();
+      setLists(lists);
       setAllTasks(tasks);
       setMainList(tasks);
     })();
@@ -72,8 +111,14 @@ function App() {
     <div>
       <IsAuthenticated />
       <LogoutBtn name={"Sign out"} />
-      <Lists change={changeMain}></Lists>
-      <Main listName={title} tasks={mainList} />
+      <Lists change={changeMain} lists={lists}></Lists>
+      <Main
+        listName={title}
+        tasks={mainList}
+        delTask={delTask}
+        allLists={lists}
+        addTask={addTask}
+      />
     </div>
   );
 }
