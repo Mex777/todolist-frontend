@@ -1,4 +1,4 @@
-<h1>Todolist</h1>
+<h1>Todolist - frontend</h1>
 
 <p> 
   This app was made using React for frontend and Express and MongoDB for backend. 
