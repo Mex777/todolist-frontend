@@ -71,6 +71,20 @@ const addItemReq = async (name, id) => {
   return resJSON;
 };
 
+const fetchDeleteTask = async (id) => {
+  const myHeaders = new Headers();
+  const token = localStorage.getItem("secret_token");
+  myHeaders.append("Authorization", `Bearer ${token}`);
+
+  const requestOptions = {
+    method: "DELETE",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+
+  await fetch(`${process.env.REACT_APP_API_URL}/items/${id}`, requestOptions);
+};
+
 function App() {
   const [mainList, setMainList] = useState(0);
   const [allTasks, setAllTasks] = useState();
@@ -85,6 +99,7 @@ function App() {
 
   const delTask = (id) => {
     // make the requests to delete tasks on the server
+    fetchDeleteTask(id);
     setAllTasks(allTasks.filter((task) => task._id != id));
     setMainList(mainList.filter((task) => task._id != id));
   };
