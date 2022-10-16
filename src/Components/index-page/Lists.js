@@ -6,6 +6,7 @@ function Lists({ change, lists, addList }) {
     return (
       <div>
         <form
+          className="add-new-list"
           onSubmit={(e) => {
             e.preventDefault();
             const listWithSameName = lists.find(
@@ -18,17 +19,26 @@ function Lists({ change, lists, addList }) {
           }}
         >
           <input
+            className="add-new-list"
             placeholder="Add new list"
             value={listName}
             onChange={(e) => setListName(e.target.value)}
           ></input>
         </form>
-        <li onClick={() => change(0, "All tasks")}>All tasks</li>
-        {lists.map((list) => (
-          <li key={list._id} onClick={() => change(list._id, list.name)}>
-            {list.name} {list.description}
+        <ul className="task-list">
+          <li className="task todo" onClick={() => change(0, "All tasks")}>
+            All tasks
           </li>
-        ))}
+          {lists.map((list) => (
+            <li
+              className="task todo"
+              key={list._id}
+              onClick={() => change(list._id, list.name)}
+            >
+              {list.name}
+            </li>
+          ))}
+        </ul>
       </div>
     );
 }

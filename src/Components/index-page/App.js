@@ -1,3 +1,4 @@
+import "../../app.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchUser, IsAuthenticated } from "../auth";
@@ -43,7 +44,7 @@ const fetchTasks = async () => {
   return itemsJSON;
 };
 
-const addItemReq = async (name, id) => {
+const addItemReq = async (name, id, description) => {
   const myHeaders = new Headers();
   const token = localStorage.getItem("secret_token");
   myHeaders.append("Authorization", `Bearer ${token}`);
@@ -56,12 +57,12 @@ const addItemReq = async (name, id) => {
   let res;
   if (id === "none") {
     res = await fetch(
-      `${process.env.REACT_APP_API_URL}/items?name=${name}`,
+      `${process.env.REACT_APP_API_URL}/items?name=${name}&description=${description}`,
       requestOptions
     );
   } else {
     res = await fetch(
-      `${process.env.REACT_APP_API_URL}/items?name=${name}&partOf=${id}`,
+      `${process.env.REACT_APP_API_URL}/items?name=${name}&description=${description}&partOf=${id}`,
       requestOptions
     );
   }
@@ -136,8 +137,8 @@ function App() {
     setMainList(mainList.filter((task) => task._id != id));
   };
 
-  const addTask = async (name, id) => {
-    const task = await addItemReq(name, id);
+  const addTask = async (name, id, description) => {
+    const task = await addItemReq(name, id, description);
     setAllTasks(allTasks.concat([task]));
     const listName = lists.find((el) => el._id == id);
     if (title === "All tasks" || title === listName.name)
@@ -182,18 +183,30 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <div className="main">
       <IsAuthenticated />
-      <LogoutBtn name={"Sign out"} />
-      <Lists addList={addList} change={changeMain} lists={lists}></Lists>
-      <Main
-        listName={title}
-        tasks={mainList}
-        delTask={delTask}
-        allLists={lists}
-        addTask={addTask}
-        delList={delList}
-      />
+      <div className="header">
+        <h1 className="title"> MEX's TO-DOs</h1>
+        <LogoutBtn name={"Sign out"} />
+      </div>
+      <div className="main">
+        <div className="cnt">
+          <div className="sidebar">
+            <Lists addList={addList} change={changeMain} lists={lists}></Lists>
+          </div>
+          <div className="list">
+            <Main
+              listName={title}
+              tasks={mainList}
+              delTask={delTask}
+              allLists={lists}
+              addTask={addTask}
+              delList={delList}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="footer">Copyright © Mex 2022</div>
     </div>
   );
 }

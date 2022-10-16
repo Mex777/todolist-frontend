@@ -1,0 +1,119 @@
+.task {
+  font-size: 1.5rem;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.293);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task:last-of-type {
+  border-bottom: 0px;
+}
+
+.task-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.delete-button {
+  background-color: rgb(231, 17, 17);
+  border: 0px;
+  padding: 0.6rem;
+  border-radius: 10px;
+  color: white;
+}
+
+.add-task,
+.delete-list {
+  background-color: transparent;
+  border: 0px;
+  margin-right: 0.4rem;
+  color: white;
+}
+
+.delete-list {
+  color: red;
+}
+
+.add-task:active {
+  color: rgb(223, 223, 223);
+}
+
+.task-description,
+.task-name {
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  flex-flow: column;
+  height: 100%;
+  background-color: rgba(255, 0, 85, 0.583);
+}
+
+.todo {
+  color: white;
+  font-weight: bold;
+  border-color: white;
+}
+
+.add-new-list {
+  padding: 1rem;
+}
+.add-new-list input {
+  background-color: white;
+}
+
+.list {
+  display: flex;
+  justify-content: center;
+}
+
+.header {
+  background-color: blueviolet;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logout-btn {
+  color: white;
+  background-color: transparent;
+  border: 0px;
+  margin-right: 1rem;
+}
+
+.title {
+  margin-left: 1rem;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  padding: 0.4rem;
+}
+
+.button-group {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.cancel-button {
+  background-color: rgb(231, 17, 17);
+  color: white;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  border: 0px;
+  border-radius: 10px;
+  font-weight: bold;
+}

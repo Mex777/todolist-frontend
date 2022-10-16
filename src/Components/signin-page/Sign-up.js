@@ -56,38 +56,51 @@ function SignUp() {
   };
 
   return (
-    <div>
-      <NotAuthenticated />
-      <form>
-        <label>Username</label>
-        <input
-          name="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-        <label>Password</label>
-        <input
-          name="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <label>Repeat Password</label>
-        <input
-          name="password"
-          type="password"
-          value={passwordRepeat}
-          onChange={(e) => setPasswordRepeat(e.target.value)}
-          required
-        />
-        <button onClick={submit}>Submit</button>
-      </form>
-      <p>{error}</p>
-      <p>
-        Already have an account? Login <a href="/login">here</a>
-      </p>
+    <div className="container">
+      <div className="card">
+        <NotAuthenticated />
+        <div className="card-header">
+          <h1>Create an account</h1>
+        </div>
+        <form>
+          <div className="field">
+            <label>Username</label>
+            <input
+              name="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div className="field">
+            <label>Password</label>
+            <input
+              name="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="field">
+            <label>Repeat Password</label>
+            <input
+              name="repeat-password"
+              type="password"
+              value={passwordRepeat}
+              onChange={(e) => setPasswordRepeat(e.target.value)}
+              required
+            />
+          </div>
+          {error ? <p className="error">{error}</p> : null}
+          <p>
+            Already have an account? Login <a href="/login">here</a>
+          </p>
+          <div className="button-container">
+            <button onClick={submit}>Sign Up</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

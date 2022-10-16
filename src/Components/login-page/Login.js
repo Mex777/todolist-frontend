@@ -1,3 +1,4 @@
+import "../../auth.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchUser, NotAuthenticated } from "../auth";
@@ -46,30 +47,42 @@ function Login() {
   };
 
   return (
-    <div>
-      <NotAuthenticated />
-      <form>
-        <label>Username</label>
-        <input
-          name="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-        <label>Password</label>
-        <input
-          name="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button onClick={submit}>Submit</button>
-      </form>
-      <p>{error}</p>
-      <p>
-        Don't have an account? Sign-up <a href="/signup">here</a>
-      </p>
+    <div className="container">
+      <div className="card">
+        <NotAuthenticated />
+        <div className="card-header">
+          <h1>LOGIN</h1>
+        </div>
+        <form>
+          <div className="field">
+            <label>Username</label>
+            <input
+              name="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div className="field">
+            <label>Password</label>
+            <input
+              name="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          {error ? <p className="error">{error}</p> : null}
+          <p>
+            Don't have an account? Sign-up <a href="/signup">here</a>
+          </p>
+
+          <div className="button-container">
+            <button onClick={submit}>Submit</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
