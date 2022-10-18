@@ -2,15 +2,15 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { NotAuthenticated } from "../auth";
 
-const fetchForm = async (username, password) => {
-  var myHeaders = new Headers();
+const fetchSignupForm = async (username, password) => {
+  const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-  var urlencoded = new URLSearchParams();
+  const urlencoded = new URLSearchParams();
   urlencoded.append("username", username);
   urlencoded.append("password", password);
 
-  var requestOptions = {
+  const requestOptions = {
     method: "POST",
     headers: myHeaders,
     body: urlencoded,
@@ -45,7 +45,7 @@ function SignUp() {
       return;
     }
 
-    const res = await fetchForm(username, password);
+    const res = await fetchSignupForm(username, password);
 
     if (res.message) {
       navigate("/login");

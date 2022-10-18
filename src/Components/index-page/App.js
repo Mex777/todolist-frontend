@@ -2,122 +2,17 @@ import "../../app.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchUser, IsAuthenticated } from "../auth";
+import {
+  fetchDeleteList,
+  fetchDeleteTask,
+  fetchLists,
+  fetchNewList,
+  fetchTasks,
+  addItemReq,
+} from "./req";
 import LogoutBtn from "../reusables/LogoutBtn";
 import Lists from "./Lists";
 import Main from "./Main";
-
-const fetchLists = async () => {
-  const token = localStorage.getItem("secret_token");
-  const myHeaders = new Headers();
-  myHeaders.append("Authorization", `Bearer ${token}`);
-
-  const requestOptions = {
-    method: "GET",
-    headers: myHeaders,
-    redirect: "follow",
-  };
-
-  const res = await fetch(
-    `${process.env.REACT_APP_API_URL}/todo`,
-    requestOptions
-  );
-  const resJSON = await res.json();
-  return resJSON;
-};
-
-const fetchTasks = async () => {
-  const myHeaders = new Headers();
-  const token = localStorage.getItem("secret_token");
-  myHeaders.append("Authorization", `Bearer ${token}`);
-
-  const requestOptions = {
-    method: "GET",
-    headers: myHeaders,
-    redirect: "follow",
-  };
-
-  const items = await fetch(
-    `${process.env.REACT_APP_API_URL}/items`,
-    requestOptions
-  );
-  const itemsJSON = await items.json();
-  return itemsJSON;
-};
-
-const addItemReq = async (name, id, description) => {
-  const myHeaders = new Headers();
-  const token = localStorage.getItem("secret_token");
-  myHeaders.append("Authorization", `Bearer ${token}`);
-
-  const requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    redirect: "follow",
-  };
-  let res;
-  if (id === "none") {
-    res = await fetch(
-      `${process.env.REACT_APP_API_URL}/items?name=${name}&description=${description}`,
-      requestOptions
-    );
-  } else {
-    res = await fetch(
-      `${process.env.REACT_APP_API_URL}/items?name=${name}&description=${description}&partOf=${id}`,
-      requestOptions
-    );
-  }
-
-  const resJSON = await res.json();
-
-  return resJSON;
-};
-
-const fetchDeleteTask = async (id) => {
-  const myHeaders = new Headers();
-  const token = localStorage.getItem("secret_token");
-  myHeaders.append("Authorization", `Bearer ${token}`);
-
-  const requestOptions = {
-    method: "DELETE",
-    headers: myHeaders,
-    redirect: "follow",
-  };
-
-  await fetch(`${process.env.REACT_APP_API_URL}/items/${id}`, requestOptions);
-};
-
-const fetchNewList = async (name) => {
-  const myHeaders = new Headers();
-  const token = localStorage.getItem("secret_token");
-  myHeaders.append("Authorization", `Bearer ${token}`);
-
-  const requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    redirect: "follow",
-  };
-
-  const newList = await fetch(
-    `${process.env.REACT_APP_API_URL}/todo?name=${name}`,
-    requestOptions
-  );
-  const newListJSON = await newList.json();
-  return newListJSON;
-};
-
-const fetchDeleteList = async (id) => {
-  const myHeaders = new Headers();
-  const token = localStorage.getItem("secret_token");
-  myHeaders.append("Authorization", `Bearer ${token}`);
-
-  const requestOptions = {
-    method: "DELETE",
-    headers: myHeaders,
-    redirect: "follow",
-  };
-
-  await fetch(`${process.env.REACT_APP_API_URL}/todo/${id}`, requestOptions);
-};
 
 function App() {
   const [mainList, setMainList] = useState(0);
@@ -154,22 +49,11 @@ function App() {
     const list = lists.find((el) => el.name === name);
     fetchDeleteList(list._id);
 
-    // to do: make this work without reloading the page
-    // setMainList(
-    //   mainList.filter((task) => {
-    //     return task.partOf !== list._id;
-    //   })
-    // );
-    // const filtered = allTasks.filter((task) => {
-    //   console.log(task.partOf, list._id, task.partOf !== list._id);
-    //   return task.partOf !== list._id;
-    // });
-    // setAllTasks(filtered);
-    // changeMain(0, "All tasks");
-    // setLists(lists.filter((el) => el._id !== list._id));
-    // console.log(filtered);
-
-    window.location.reload();
+    const filtered = allTasks.filter((task) => task.partOf !== list._id);
+    changeMain(0, "All tasks");
+    setAllTasks(filtered);
+    setMainList(filtered);
+    setLists(lists.filter((el) => el._id !== list._id));
   };
 
   useEffect(() => {
