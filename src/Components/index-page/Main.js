@@ -1,14 +1,13 @@
 import { useState } from "react";
-import { ReactComponent as TrashIcon } from "../../trash-icon.svg";
-import Form from "./Add-task-form";
+import Form from "./Form/Form";
 import MainHeader from "./Main-header";
 import Task from "./Task-list";
 
 function Main({ tasks, listName, delTask, allLists, addTask, delList }) {
-  const [showAddTask, setShowAddTask] = useState(false);
+  const [showTaskForm, setShowTaskForm] = useState(false);
 
   const toggle = () => {
-    setShowAddTask(!showAddTask);
+    setShowTaskForm(!showTaskForm);
   };
 
   if (tasks)
@@ -21,7 +20,7 @@ function Main({ tasks, listName, delTask, allLists, addTask, delList }) {
               <Task key={task._id} task={task} delTask={delTask} />
             ))}
 
-            {showAddTask ? (
+            {showTaskForm ? (
               <Form allLists={allLists} addTask={addTask} close={toggle} />
             ) : null}
           </ul>
