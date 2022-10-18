@@ -1,7 +1,6 @@
 import "../../app.css";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { fetchUser, IsAuthenticated } from "../auth";
+import { IsAuthenticated } from "../auth";
 import {
   fetchDeleteList,
   fetchDeleteTask,
@@ -22,20 +21,20 @@ function App() {
 
   const changeMain = (id, name) => {
     setTitle(name);
-    if (id) setMainList(allTasks.filter((task) => task.partOf == id));
+    if (id) setMainList(allTasks.filter((task) => task.partOf === id));
     else setMainList(allTasks);
   };
 
   const delTask = (id) => {
     fetchDeleteTask(id);
-    setAllTasks(allTasks.filter((task) => task._id != id));
-    setMainList(mainList.filter((task) => task._id != id));
+    setAllTasks(allTasks.filter((task) => task._id !== id));
+    setMainList(mainList.filter((task) => task._id !== id));
   };
 
   const addTask = async (name, id, description) => {
     const task = await addItemReq(name, id, description);
     setAllTasks(allTasks.concat([task]));
-    const listName = lists.find((el) => el._id == id);
+    const listName = lists.find((el) => el._id === id);
     if (title === "All tasks" || title === listName.name)
       setMainList(mainList.concat([task]));
   };
@@ -78,16 +77,14 @@ function App() {
           <div className="sidebar">
             <Lists addList={addList} change={changeMain} lists={lists}></Lists>
           </div>
-          <div className="list">
-            <Main
-              listName={title}
-              tasks={mainList}
-              delTask={delTask}
-              allLists={lists}
-              addTask={addTask}
-              delList={delList}
-            />
-          </div>
+          <Main
+            listName={title}
+            tasks={mainList}
+            delTask={delTask}
+            allLists={lists}
+            addTask={addTask}
+            delList={delList}
+          />
         </div>
       </div>
       <div className="footer">Copyright © Mex 2022</div>
