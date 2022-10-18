@@ -94,7 +94,7 @@ function SignUp() {
           </div>
           {error ? <p className="error">{error}</p> : null}
           <p>
-            Already have an account? Login <a href="/login">here</a>
+            Already have an account? Login <a href="/login">here</a>.
           </p>
           <div className="button-container">
             <button onClick={submit}>Sign Up</button>

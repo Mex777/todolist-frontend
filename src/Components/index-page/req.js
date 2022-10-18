@@ -1,8 +1,8 @@
-const token = localStorage.getItem("secret_token");
 const URL = process.env.REACT_APP_API_URL;
 
 const fetchLists = async () => {
   const myHeaders = new Headers();
+  const token = localStorage.getItem("secret_token");
   myHeaders.append("Authorization", `Bearer ${token}`);
 
   const requestOptions = {
@@ -18,6 +18,7 @@ const fetchLists = async () => {
 
 const fetchTasks = async () => {
   const myHeaders = new Headers();
+  const token = localStorage.getItem("secret_token");
   myHeaders.append("Authorization", `Bearer ${token}`);
 
   const requestOptions = {
@@ -33,6 +34,7 @@ const fetchTasks = async () => {
 
 const addItemReq = async (name, id, description) => {
   const myHeaders = new Headers();
+  const token = localStorage.getItem("secret_token");
   myHeaders.append("Authorization", `Bearer ${token}`);
 
   const requestOptions = {
@@ -60,6 +62,7 @@ const addItemReq = async (name, id, description) => {
 
 const fetchDeleteTask = async (id) => {
   const myHeaders = new Headers();
+  const token = localStorage.getItem("secret_token");
   myHeaders.append("Authorization", `Bearer ${token}`);
 
   const requestOptions = {
@@ -73,6 +76,7 @@ const fetchDeleteTask = async (id) => {
 
 const fetchNewList = async (name) => {
   const myHeaders = new Headers();
+  const token = localStorage.getItem("secret_token");
   myHeaders.append("Authorization", `Bearer ${token}`);
 
   const requestOptions = {
@@ -88,6 +92,7 @@ const fetchNewList = async (name) => {
 
 const fetchDeleteList = async (id) => {
   const myHeaders = new Headers();
+  const token = localStorage.getItem("secret_token");
   myHeaders.append("Authorization", `Bearer ${token}`);
 
   const requestOptions = {
