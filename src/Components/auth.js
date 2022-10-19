@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+// makes a request to see if the user is logged in or not
 const fetchUser = async () => {
   const token = localStorage.getItem("secret_token");
   const myHeaders = new Headers();
@@ -21,6 +22,7 @@ const fetchUser = async () => {
   }
 };
 
+// middleware component which returns a component only if the user is logged in
 function IsAuthenticated({ Component }) {
   const [user, setUser] = useState();
   const navigate = useNavigate();
@@ -36,6 +38,7 @@ function IsAuthenticated({ Component }) {
   if (user) return <Component user={user} />;
 }
 
+// middleware comoponent which returns a component only if the user is not logged in
 function NotAuthenticated({ Component }) {
   const navigate = useNavigate();
   const [notLogged, setNotLogged] = useState(false);
@@ -50,4 +53,4 @@ function NotAuthenticated({ Component }) {
   if (notLogged) return <Component />;
 }
 
-export { IsAuthenticated, NotAuthenticated, fetchUser };
+export { IsAuthenticated, NotAuthenticated };

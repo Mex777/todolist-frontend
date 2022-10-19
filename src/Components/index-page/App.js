@@ -1,6 +1,5 @@
 import "../../app.css";
 import { useEffect, useState } from "react";
-import { IsAuthenticated } from "../auth";
 import {
   fetchDeleteList,
   fetchDeleteTask,
@@ -19,6 +18,7 @@ function App({ user }) {
   const [title, setTitle] = useState("All tasks");
   const [lists, setLists] = useState();
 
+  // changes the list the user sees on the screen
   const changeMain = (id, name) => {
     setTitle(name);
     if (id) setMainList(allTasks.filter((task) => task.partOf === id));
@@ -35,6 +35,7 @@ function App({ user }) {
     const task = await addItemReq(name, id, description);
     setAllTasks(allTasks.concat([task]));
     const listName = lists.find((el) => el._id === id);
+    // adds the current task on the screen if the selected project is the same with the project on the screen
     if (title === "All tasks" || title === listName.name)
       setMainList(mainList.concat([task]));
   };
@@ -45,9 +46,11 @@ function App({ user }) {
   };
 
   const delList = (name) => {
+    // deletes list from the database
     const list = lists.find((el) => el.name === name);
     fetchDeleteList(list._id);
 
+    // deletes the tasks associated with the deleted list(locally)
     const filtered = allTasks.filter((task) => task.partOf !== list._id);
     changeMain(0, "All tasks");
     setAllTasks(filtered);

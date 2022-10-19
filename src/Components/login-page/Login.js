@@ -1,9 +1,9 @@
 import "../../auth.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchUser, NotAuthenticated } from "../auth";
 import InputField from "../reusables/InputField";
 
+// makes a request to login the user
 const fetchForm = async (username, password) => {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");

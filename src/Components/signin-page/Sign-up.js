@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { NotAuthenticated } from "../auth";
 import InputField from "../reusables/InputField";
 
+// makes a request to create a new account in the database
 const fetchSignupForm = async (username, password) => {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");

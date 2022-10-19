@@ -1,5 +1,6 @@
 const URL = process.env.REACT_APP_API_URL;
 
+// makes a request to get all the lists from the database
 const fetchLists = async () => {
   const myHeaders = new Headers();
   const token = localStorage.getItem("secret_token");
@@ -16,6 +17,7 @@ const fetchLists = async () => {
   return resJSON;
 };
 
+// makes a request to get all tasks from the database
 const fetchTasks = async () => {
   const myHeaders = new Headers();
   const token = localStorage.getItem("secret_token");
@@ -32,6 +34,7 @@ const fetchTasks = async () => {
   return itemsJSON;
 };
 
+// makes a request to add a new task to the database
 const addItemReq = async (name, id, description) => {
   const myHeaders = new Headers();
   const token = localStorage.getItem("secret_token");
@@ -60,6 +63,7 @@ const addItemReq = async (name, id, description) => {
   return resJSON;
 };
 
+// makes a request to delete a task from the database
 const fetchDeleteTask = async (id) => {
   const myHeaders = new Headers();
   const token = localStorage.getItem("secret_token");
@@ -74,6 +78,7 @@ const fetchDeleteTask = async (id) => {
   await fetch(`${URL}/items/${id}`, requestOptions);
 };
 
+// makes a request to create a new list in the database
 const fetchNewList = async (name) => {
   const myHeaders = new Headers();
   const token = localStorage.getItem("secret_token");
@@ -90,6 +95,7 @@ const fetchNewList = async (name) => {
   return newListJSON;
 };
 
+// makes a request to delete the list from the database
 const fetchDeleteList = async (id) => {
   const myHeaders = new Headers();
   const token = localStorage.getItem("secret_token");
