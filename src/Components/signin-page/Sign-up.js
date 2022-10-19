@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InputField from "../reusables/InputField";
 
+const URL = "https://arcane-shelf-98000.herokuapp.com";
+
 // makes a request to create a new account in the database
 const fetchSignupForm = async (username, password) => {
   const myHeaders = new Headers();
@@ -18,10 +20,7 @@ const fetchSignupForm = async (username, password) => {
     redirect: "follow",
   };
 
-  const res = await fetch(
-    `${process.env.REACT_APP_API_URL}/signup`,
-    requestOptions
-  );
+  const res = await fetch(`${URL}/signup`, requestOptions);
   const resJSON = await res.json();
   return resJSON;
 };

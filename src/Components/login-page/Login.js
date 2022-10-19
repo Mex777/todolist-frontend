@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InputField from "../reusables/InputField";
 
+const URL = "https://arcane-shelf-98000.herokuapp.com";
+
 // makes a request to login the user
 const fetchForm = async (username, password) => {
   const myHeaders = new Headers();
@@ -19,10 +21,7 @@ const fetchForm = async (username, password) => {
     redirect: "follow",
   };
 
-  const res = await fetch(
-    `${process.env.REACT_APP_API_URL}/login`,
-    requestOptions
-  );
+  const res = await fetch(`${URL}/login`, requestOptions);
   const resJson = await res.json();
 
   return resJson;
