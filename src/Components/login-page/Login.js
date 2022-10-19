@@ -2,6 +2,7 @@ import "../../auth.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchUser, NotAuthenticated } from "../auth";
+import InputField from "../reusables/InputField";
 
 const fetchForm = async (username, password) => {
   const myHeaders = new Headers();
@@ -35,6 +36,10 @@ function Login() {
 
   const submit = async (e) => {
     e.preventDefault();
+    if (!username || !password) {
+      setError("All the fields are required");
+      return;
+    }
     const res = await fetchForm(username, password);
 
     if (res.token) {
@@ -49,30 +54,24 @@ function Login() {
   return (
     <div className="container">
       <div className="card">
-        <NotAuthenticated />
         <div className="card-header">
           <h1>LOGIN</h1>
         </div>
         <form>
-          <div className="field">
-            <label>Username</label>
-            <input
-              name="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-          <div className="field">
-            <label>Password</label>
-            <input
-              name="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
+          <InputField
+            name="username"
+            label="Username"
+            value={username}
+            setValue={setUsername}
+            type="text"
+          />
+          <InputField
+            name="password"
+            type="password"
+            label="Password"
+            value={password}
+            setValue={setPassword}
+          />
           {error ? <p className="error">{error}</p> : null}
           <p>
             Don't have an account? Sign-up <a href="/signup">here</a>.

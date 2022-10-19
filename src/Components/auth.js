@@ -21,7 +21,7 @@ const fetchUser = async () => {
   }
 };
 
-function IsAuthenticated() {
+function IsAuthenticated({ Component }) {
   const [user, setUser] = useState();
   const navigate = useNavigate();
 
@@ -29,25 +29,25 @@ function IsAuthenticated() {
     (async () => {
       const userJSON = await fetchUser();
       if (!userJSON.user) navigate("/login");
-      setUser(userJSON);
+      setUser(userJSON.user);
     })();
   }, [navigate, setUser]);
 
-  return null;
+  if (user) return <Component user={user} />;
 }
 
-function NotAuthenticated() {
+function NotAuthenticated({ Component }) {
   const navigate = useNavigate();
-
+  const [notLogged, setNotLogged] = useState(false);
   useEffect(() => {
     (async () => {
-      console.log(1);
       const userJSON = await fetchUser();
       if (userJSON.user) navigate("/");
+      setNotLogged(true);
     })();
-  }, [navigate]);
+  });
 
-  return null;
+  if (notLogged) return <Component />;
 }
 
 export { IsAuthenticated, NotAuthenticated, fetchUser };

@@ -10,10 +10,10 @@ import {
   addItemReq,
 } from "./req";
 import LogoutBtn from "../reusables/LogoutBtn";
-import Lists from "./Lists";
 import Main from "./Main";
+import Sidebar from "./sidebar/Sidebar";
 
-function App() {
+function App({ user }) {
   const [mainList, setMainList] = useState(0);
   const [allTasks, setAllTasks] = useState();
   const [title, setTitle] = useState("All tasks");
@@ -67,16 +67,13 @@ function App() {
 
   return (
     <div className="main">
-      <IsAuthenticated />
       <div className="header">
-        <h1 className="title"> MEX's TO-DOs</h1>
+        <h1 className="title unselectable"> {user.username}'s TO-DOs</h1>
         <LogoutBtn name={"Sign out"} />
       </div>
       <div className="main">
-        <div className="cnt">
-          <div className="sidebar">
-            <Lists addList={addList} change={changeMain} lists={lists}></Lists>
-          </div>
+        <div className="grid">
+          <Sidebar addList={addList} change={changeMain} lists={lists} />
           <Main
             listName={title}
             tasks={mainList}

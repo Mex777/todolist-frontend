@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { NotAuthenticated } from "../auth";
+import InputField from "../reusables/InputField";
 
 const fetchSignupForm = async (username, password) => {
   const myHeaders = new Headers();
@@ -58,40 +59,31 @@ function SignUp() {
   return (
     <div className="container">
       <div className="card">
-        <NotAuthenticated />
         <div className="card-header">
           <h1>Create an account</h1>
         </div>
         <form>
-          <div className="field">
-            <label>Username</label>
-            <input
-              name="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-          <div className="field">
-            <label>Password</label>
-            <input
-              name="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <div className="field">
-            <label>Repeat Password</label>
-            <input
-              name="repeat-password"
-              type="password"
-              value={passwordRepeat}
-              onChange={(e) => setPasswordRepeat(e.target.value)}
-              required
-            />
-          </div>
+          <InputField
+            name="username"
+            label="Username"
+            value={username}
+            setValue={setUsername}
+            type="text"
+          />
+          <InputField
+            name="password"
+            type="password"
+            label="Password"
+            value={password}
+            setValue={setPassword}
+          />
+          <InputField
+            name="repeat-password"
+            type="password"
+            label="Repeat Password"
+            value={passwordRepeat}
+            setValue={setPasswordRepeat}
+          />
           {error ? <p className="error">{error}</p> : null}
           <p>
             Already have an account? Login <a href="/login">here</a>.

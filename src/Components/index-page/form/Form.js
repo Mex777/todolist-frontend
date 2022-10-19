@@ -1,8 +1,8 @@
 import { useState } from "react";
+import InputField from "../../reusables/InputField";
 import CancelButton from "./CancelButton";
 import DescriptionInput from "./Description-input";
 import ListSelector from "./ListSelector";
-import NameInput from "./NameInput";
 import SubmitButton from "./SubmitButton";
 
 function Form({ allLists, addTask, close }) {
@@ -22,7 +22,13 @@ function Form({ allLists, addTask, close }) {
   return (
     <li>
       <form>
-        <NameInput taskName={taskName} setTaskName={setTaskName} />
+        <InputField
+          name="name"
+          label="Task Name"
+          value={taskName}
+          setValue={setTaskName}
+          type="text"
+        />
         <DescriptionInput
           taskDescription={taskDescription}
           setTaskDescripion={setTaskDescripion}

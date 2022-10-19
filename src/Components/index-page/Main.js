@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Form from "./Form/Form";
+import Form from "./form/Form";
 import MainHeader from "./Main-header";
 import Task from "./Task-list";
 
