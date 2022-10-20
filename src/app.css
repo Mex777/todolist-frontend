@@ -2,6 +2,12 @@
   font-size: 1.5rem;
   padding: 1rem;
   border-bottom: 1px solid rgba(128, 128, 128, 0.293);
+  /* display: flex; */
+  /* justify-content: space-between; */
+  /* align-items: center; */
+}
+
+.align {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -130,4 +136,19 @@ p {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.task-date {
+  position: relative;
+  font-size: 0.9rem;
+  margin-bottom: 0px;
+  padding: 0px;
+}
+
+.expired {
+  color: rgba(255, 0, 0, 0.636);
+}
+
+.valid {
+  color: rgb(55, 115, 55);
 }

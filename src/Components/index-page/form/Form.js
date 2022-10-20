@@ -1,6 +1,7 @@
 import { useState } from "react";
 import InputField from "../../reusables/InputField";
 import CancelButton from "./CancelButton";
+import DateInput from "./DateInput";
 import DescriptionInput from "./Description-input";
 import ListSelector from "./ListSelector";
 import SubmitButton from "./SubmitButton";
@@ -10,11 +11,12 @@ function Form({ allLists, addTask, close }) {
   const [taskDescription, setTaskDescripion] = useState("");
   const [selectedList, setSelectedList] = useState("none");
   const [error, setError] = useState("");
+  const [date, setDate] = useState(new Date());
 
   const submit = (e) => {
     e.preventDefault();
     if (taskName) {
-      addTask(taskName, selectedList, taskDescription);
+      addTask(taskName, selectedList, taskDescription, date);
       close();
     } else setError("Name must not be empty");
   };
@@ -38,7 +40,7 @@ function Form({ allLists, addTask, close }) {
           setSelectedList={setSelectedList}
           allLists={allLists}
         />
-
+        <DateInput date={date} setDate={setDate} />
         {error ? <p className="error">{error}</p> : null}
         <div className="button-group">
           <CancelButton close={close} />

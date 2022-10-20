@@ -31,8 +31,8 @@ function App({ user }) {
     setMainList(mainList.filter((task) => task._id !== id));
   };
 
-  const addTask = async (name, id, description) => {
-    const task = await addItemReq(name, id, description);
+  const addTask = async (name, id, description, date) => {
+    const task = await addItemReq(name, id, description, date);
     setAllTasks(allTasks.concat([task]));
     const listName = lists.find((el) => el._id === id);
     // adds the current task on the screen if the selected project is the same with the project on the screen

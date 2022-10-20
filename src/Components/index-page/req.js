@@ -1,4 +1,4 @@
-const URL = "https://arcane-shelf-98000.herokuapp.com";
+const URL = process.env.REACT_APP_API_URL;
 
 // makes a request to get all the lists from the database
 const fetchLists = async () => {
@@ -35,7 +35,7 @@ const fetchTasks = async () => {
 };
 
 // makes a request to add a new task to the database
-const addItemReq = async (name, id, description) => {
+const addItemReq = async (name, id, description, date) => {
   const myHeaders = new Headers();
   const token = localStorage.getItem("secret_token");
   myHeaders.append("Authorization", `Bearer ${token}`);
@@ -48,12 +48,12 @@ const addItemReq = async (name, id, description) => {
   let res;
   if (id === "none") {
     res = await fetch(
-      `${URL}/items?name=${name}&description=${description}`,
+      `${URL}/items?name=${name}&description=${description}&date=${date}`,
       requestOptions
     );
   } else {
     res = await fetch(
-      `${URL}/items?name=${name}&description=${description}&partOf=${id}`,
+      `${URL}/items?name=${name}&description=${description}&partOf=${id}&date=${date}`,
       requestOptions
     );
   }

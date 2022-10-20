@@ -24,3 +24,12 @@ code {
   flex-flow: column;
   height: 100%;
 }
+
+.react-date-picker {
+  background-color: rgba(230, 230, 230, 0.398);
+}
+
+.react-date-picker__wrapper {
+  border: none !important;
+  padding: 0.5rem;
+}

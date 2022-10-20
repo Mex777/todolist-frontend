@@ -6,7 +6,10 @@ function InputField({ value, setValue, name, label, type }) {
         name={name}
         value={value}
         type={type}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => {
+          setValue(e.target.value);
+          console.log(e.target.value);
+        }}
         required
       />
     </div>
