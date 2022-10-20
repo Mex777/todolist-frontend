@@ -1,7 +1,3 @@
-* {
-  /* border: 1px solid red; */
-}
-
 html {
   height: 100%;
   margin: 0;
@@ -36,19 +32,16 @@ body {
   justify-content: space-between;
   align-items: center;
   border-radius: 10px 10px 0 0;
-  /* height */
 }
 
 .card-header h1 {
   padding: 1rem;
-  /* padding: 0; */
   margin: 0rem;
   font-size: 3rem;
 }
 
 .card-header h2 {
   padding: 1rem;
-  /* padding: 0; */
   margin: 0rem;
   font-size: 2rem;
 }
@@ -88,8 +81,6 @@ form textarea {
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
-  /* margin-top: 0.5rem; */
-  /* margin-bottom: 1rem; */
 }
 
 .field:last-of-type {
