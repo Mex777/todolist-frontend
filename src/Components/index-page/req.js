@@ -1,4 +1,4 @@
-const URL = "https://arcane-shelf-98000.herokuapp.com";
+const URL = process.env.REACT_APP_API_URL;
 
 // makes a request to get all the lists from the database
 const fetchLists = async () => {
