@@ -14,6 +14,7 @@ import Sidebar from "./sidebar/Sidebar";
 
 function App({ user }) {
   const [mainList, setMainList] = useState(0);
+  const [mainID, setMainID] = useState("none");
   const [allTasks, setAllTasks] = useState();
   const [title, setTitle] = useState("All tasks");
   const [lists, setLists] = useState();
@@ -21,6 +22,7 @@ function App({ user }) {
   // changes the list the user sees on the screen
   const changeMain = (id, name) => {
     setTitle(name);
+    setMainID(id);
     if (id) setMainList(allTasks.filter((task) => task.partOf === id));
     else setMainList(allTasks);
   };
@@ -84,6 +86,7 @@ function App({ user }) {
             allLists={lists}
             addTask={addTask}
             delList={delList}
+            mainID={mainID}
           />
         </div>
       </div>

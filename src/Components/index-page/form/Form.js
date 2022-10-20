@@ -6,10 +6,10 @@ import DescriptionInput from "./Description-input";
 import ListSelector from "./ListSelector";
 import SubmitButton from "./SubmitButton";
 
-function Form({ allLists, addTask, close }) {
+function Form({ allLists, addTask, close, mainID }) {
   const [taskName, setTaskName] = useState("");
   const [taskDescription, setTaskDescripion] = useState("");
-  const [selectedList, setSelectedList] = useState("none");
+  const [selectedList, setSelectedList] = useState(mainID);
   const [error, setError] = useState("");
   const [date, setDate] = useState(new Date());
 
@@ -35,11 +35,13 @@ function Form({ allLists, addTask, close }) {
           taskDescription={taskDescription}
           setTaskDescripion={setTaskDescripion}
         />
-        <ListSelector
-          selectedList={selectedList}
-          setSelectedList={setSelectedList}
-          allLists={allLists}
-        />
+        {mainID === "none" ? (
+          <ListSelector
+            selectedList={selectedList}
+            setSelectedList={setSelectedList}
+            allLists={allLists}
+          />
+        ) : null}
         <DateInput date={date} setDate={setDate} />
         {error ? <p className="error">{error}</p> : null}
         <div className="button-group">

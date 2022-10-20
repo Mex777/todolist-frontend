@@ -3,7 +3,15 @@ import Form from "./form/Form";
 import MainHeader from "./Main-header";
 import Task from "./Task-list";
 
-function Main({ tasks, listName, delTask, allLists, addTask, delList }) {
+function Main({
+  tasks,
+  listName,
+  delTask,
+  allLists,
+  addTask,
+  delList,
+  mainID,
+}) {
   const [showTaskForm, setShowTaskForm] = useState(false);
 
   const toggle = () => {
@@ -21,7 +29,12 @@ function Main({ tasks, listName, delTask, allLists, addTask, delList }) {
             ))}
 
             {showTaskForm ? (
-              <Form allLists={allLists} addTask={addTask} close={toggle} />
+              <Form
+                allLists={allLists}
+                addTask={addTask}
+                close={toggle}
+                mainID={mainID}
+              />
             ) : null}
           </ul>
         </div>
