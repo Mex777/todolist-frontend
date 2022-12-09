@@ -149,3 +149,15 @@ p {
 .valid {
   color: rgb(55, 115, 55);
 }
+
+@media (max-width: 650px) {
+  .sidebar {
+    display: none;
+  }
+  .list {
+    width: 100%;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

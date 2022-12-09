@@ -3,20 +3,21 @@ import { ReactComponent as TrashIcon } from "../../trash-icon.svg";
 const compare = (date) => {
   const currDate = new Date();
   return (
-    date.getDate() >= currDate.getDate() ||
-    date.getMonth() > currDate.getMonth() ||
-    date.getFullYear() > currDate.getFullYear()
+    // date.getDate() >= currDate.getDate() &&
+    // date.getMonth() >= currDate.getMonth() &&
+    // date.getFullYear() >= currDate.getFullYear()
+    currDate <= date
   );
 };
 
 function Task({ task, delTask }) {
   let dateClass;
   const date = new Date(task.date);
-  const formattedString = `${date.getDate()}-${
+  const formattedString = `${date.getDate()}/${
     date.getMonth() + 1
-  }-${date.getFullYear()}`;
-  const notExpired = compare(date);
-  if (notExpired) dateClass = "valid";
+  }/${date.getFullYear()}`;
+  const valid = new Date() <= date;
+  if (valid) dateClass = "valid";
   else dateClass = "expired";
 
   return (

@@ -15,7 +15,7 @@ code {
 .grid {
   display: grid;
   height: 100%;
-  grid-template-columns: 1.5fr 5fr;
+  grid-template-columns: minmax(210px, 1.5fr) 5fr;
 }
 
 #root,
